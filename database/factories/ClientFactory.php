@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Enums\Profession;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,7 +19,7 @@ class ClientFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => \App\Models\User::factory(),
+            'user_id' => User::factory(),
             'profession' => fake()->randomElement(Profession::cases()),
             'name' => fake()->name(),
             'cpf' => fake()->numerify('###.###.###-##'),

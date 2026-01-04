@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Enums\ProductStatus;
 use App\Enums\ProductType;
+use App\Models\Supplier;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,7 +20,7 @@ class ProductFactory extends Factory
     public function definition(): array
     {
         return [
-            'supplier_id' => \App\Models\Supplier::factory(),
+            'supplier_id' => Supplier::factory(),
             'name' => fake()->word(),
             'price' => fake()->randomFloat(2, 10, 1000),
             'type' => fake()->randomElement(ProductType::cases()),

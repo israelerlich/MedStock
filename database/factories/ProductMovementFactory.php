@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use App\Enums\MovementType;
+use App\Models\Client;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,8 +20,8 @@ class ProductMovementFactory extends Factory
     public function definition(): array
     {
         return [
-            'product_id' => \App\Models\Product::factory(),
-            'client_id' => \App\Models\Client::factory(),
+            'product_id' => Product::factory(),
+            'client_id' => Client::factory(),
             'type' => fake()->randomElement(MovementType::cases()),
         ];
     }
