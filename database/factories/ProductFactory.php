@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Enums\ProductStatus;
+use App\Enums\ProductType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,8 +22,8 @@ class ProductFactory extends Factory
             'supplier_id' => \App\Models\Supplier::factory(),
             'name' => fake()->word(),
             'price' => fake()->randomFloat(2, 10, 1000),
-            'type' => fake()->randomElement(['medicine', 'equipment', 'supply']),
-            'status' => fake()->randomElement(['active', 'inactive', 'discontinued']),
+            'type' => fake()->randomElement(ProductType::cases()),
+            'status' => fake()->randomElement(ProductStatus::cases()),
             'expires_at' => fake()->dateTimeBetween(now(), '+2 years'),
         ];
     }

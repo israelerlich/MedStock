@@ -24,7 +24,7 @@ class AddressFactory extends Factory
             'city' => fake()->city(),
             'state' => fake()->stateAbbr(),
             'district' => fake()->word(),
-            'country' => fake()->randomElement(['br', 'us', 'ca']),
+            'country' => fake()->randomElement(Country::cases()),
             'street' => fake()->streetName(),
             'complement_number' => fake()->buildingNumber(),
             'address_number' => fake()->buildingNumber(),

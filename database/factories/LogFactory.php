@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Enums\ActionType;
+use App\Enums\LogType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,9 +20,9 @@ class LogFactory extends Factory
     {
         return [
             'user_id' => fake()->boolean(70) ? \App\Models\User::factory() : null,
-            'action' => fake()->randomElement([1, 2, 3, 4]),
+            'action' => fake()->randomElement(ActionType::cases()),
             'description' => fake()->sentence(),
-            'type' => fake()->randomElement([1, 2, 3]),
+            'type' => fake()->randomElement(LogType::cases()),
         ];
     }
 }

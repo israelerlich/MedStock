@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\MovementType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,7 +20,7 @@ class ProductMovementFactory extends Factory
         return [
             'product_id' => \App\Models\Product::factory(),
             'client_id' => \App\Models\Client::factory(),
-            'type' => fake()->randomElement(['entry', 'exit', 'return']),
+            'type' => fake()->randomElement(MovementType::cases()),
         ];
     }
 }

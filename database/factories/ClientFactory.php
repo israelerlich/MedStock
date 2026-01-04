@@ -19,7 +19,7 @@ class ClientFactory extends Factory
     {
         return [
             'user_id' => \App\Models\User::factory(),
-            'profession' => fake()->randomElement([1, 2, 3]),
+            'profession' => fake()->randomElement(Profession::cases()),
             'name' => fake()->name(),
             'cpf' => fake()->numerify('###.###.###-##'),
             'phone_number' => fake()->phoneNumber(),
