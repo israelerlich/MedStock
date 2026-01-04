@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\UserHospital;
+use App\Models\User;
+use App\Models\Hospital;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,6 +12,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class UserHospitalFactory extends Factory
 {
+    protected $model = UserHospital::class;
+
     /**
      * Define the model's default state.
      *
@@ -17,8 +22,8 @@ class UserHospitalFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => \App\Models\User::factory(),
-            'hospital_id' => \App\Models\Hospital::factory(),
+            'user_id' => User::factory(),
+            'hospital_id' => Hospital::factory(),
         ];
     }
 }

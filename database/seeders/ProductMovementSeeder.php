@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\ProductMovement;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -12,7 +13,6 @@ class ProductMovementSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\ProductMovement::factory()->count(50)->create();
-    }
+        ProductMovement::factory()->count(50)->create();
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\UserHospital;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -12,7 +13,6 @@ class UserHospitalSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\UserHospital::factory()->count(15)->create();
-    }
+        UserHospital::factory()->count(15)->create();
     }
 }

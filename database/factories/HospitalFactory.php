@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Hospital;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,6 +10,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class HospitalFactory extends Factory
 {
+    protected $model = Hospital::class;
+
     /**
      * Define the model's default state.
      *

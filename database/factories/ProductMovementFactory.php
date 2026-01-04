@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Enums\MovementType;
 use App\Models\Client;
 use App\Models\Product;
+use App\Models\ProductMovement;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -12,6 +13,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class ProductMovementFactory extends Factory
 {
+    protected $model = ProductMovement::class;
+
     /**
      * Define the model's default state.
      *
