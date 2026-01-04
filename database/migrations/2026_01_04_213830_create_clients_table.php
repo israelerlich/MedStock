@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->enum("profession", [1, 2, 3]);
+            $table->enum("profession", Profession::cases());
             $table->string("name");
             $table->string("cpf");
             $table->string("phone_number");

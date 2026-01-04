@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('logs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained();
-            $table->enum("action", [1, 2, 3, 4]);
+            $table->enum("action", ActionType::cases());
             $table->string("description")->nullable();
-            $table->enum("type", [1, 2, 3]);
-            $table->timestamp("created_at");
+            $table->enum("type", LogType::cases());
+            $table->timestamps();
         });
     }
 

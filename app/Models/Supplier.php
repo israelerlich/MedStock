@@ -16,4 +16,9 @@ class Supplier extends Model
         "cnpj",
         "email"
     ];
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 }

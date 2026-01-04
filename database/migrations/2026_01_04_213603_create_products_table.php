@@ -18,8 +18,8 @@ return new class extends Migration
             $table->foreignId('supplier_id')->constrained();
             $table->string("name");
             $table->decimal("price", 10, 2);
-            $table->enum("type", ['medicine', 'equipment', 'supply']);
-            $table->enum("status", ['active', 'inactive', 'discontinued']);
+            $table->enum("type", ProductType::cases());
+            $table->enum("status", ProductStatus::cases());
             $table->timestamps();
             $table->timestamp("expires_at")->nullable();
             $table->softDeletes();

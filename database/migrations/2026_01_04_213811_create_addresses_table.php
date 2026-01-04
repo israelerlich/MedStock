@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string("city");
             $table->string("state");
             $table->string("district");
-            $table->enum("country", ['br', 'us', 'ca']);
+            $table->enum("country", Country::cases());
             $table->string("street");
             $table->string("complement_number");
             $table->string("address_number");

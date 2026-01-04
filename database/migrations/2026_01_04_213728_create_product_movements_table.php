@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('product_id')->constrained();
             $table->foreignId('client_id')->constrained();
-            $table->enum("type", ['entry', 'exit', 'return']);
+            $table->enum("type", MovementType::cases());
             $table->timestamps();
             $table->softDeletes();
         });
