@@ -2,6 +2,7 @@
 
 use App\Enums\ActionType;
 use App\Enums\LogType;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,7 +16,7 @@ return new class extends Migration
     {
         Schema::create('logs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable()->constrained();
+            $table->foreignIdFor(User::class)->nullable();
             $table->enum("action", ActionType::cases());
             $table->string("description")->nullable();
             $table->enum("type", LogType::cases());

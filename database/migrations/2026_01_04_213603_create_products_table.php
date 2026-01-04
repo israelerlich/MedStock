@@ -2,6 +2,7 @@
 
 use App\Enums\ProductStatus;
 use App\Enums\ProductType;
+use App\Models\Supplier;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,7 +16,7 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('supplier_id')->constrained();
+            $table->foreignIdFor(Supplier::class);
             $table->string("name");
             $table->decimal("price", 10, 2);
             $table->enum("type", ProductType::cases());
