@@ -13,7 +13,8 @@ class ProductMovementController extends Controller
      */
     public function index()
     {
-        
+        $productMovements = ProductMovement::with(['product', 'client'])->latest()->get();
+        return view('product-movements.index', compact('productMovements'));
     }
 
     /**
@@ -21,7 +22,9 @@ class ProductMovementController extends Controller
      */
     public function create()
     {
-        //
+        $products = \App\Models\Product::all();
+        $clients = \App\Models\Client::all();
+        return view('product-movements.create', compact('products', 'clients'));
     }
 
     /**
@@ -29,7 +32,8 @@ class ProductMovementController extends Controller
      */
     public function store(StoreProductMovementRequest $request)
     {
-        //
+        ProductMovement::create($request->validated());
+        return redirect()->route('product-movements.index')->with('success', 'Movimentação cadastrada com sucesso!');
     }
 
     /**
@@ -37,7 +41,8 @@ class ProductMovementController extends Controller
      */
     public function show(ProductMovement $productMovement)
     {
-        //
+        $productMovement->load(['product', 'client']);
+        return view('product-movements.show', compact('productMovement'));
     }
 
     /**
@@ -45,7 +50,9 @@ class ProductMovementController extends Controller
      */
     public function edit(ProductMovement $productMovement)
     {
-        //
+        $products = \App\Models\Product::all();
+        $clients = \App\Models\Client::all();
+        return view('product-movements.edit', compact('productMovement', 'products', 'clients'));
     }
 
     /**
@@ -53,7 +60,8 @@ class ProductMovementController extends Controller
      */
     public function update(UpdateProductMovementRequest $request, ProductMovement $productMovement)
     {
-        //
+        $productMovement->update($request->validated());
+        return redirect()->route('product-movements.index')->with('success', 'Movimentação atualizada com sucesso!');
     }
 
     /**
@@ -61,6 +69,7 @@ class ProductMovementController extends Controller
      */
     public function destroy(ProductMovement $productMovement)
     {
-        //
+        $productMovement->delete();
+        return redirect()->route('product-movements.index')->with('success', 'Movimentação excluída com sucesso!');
     }
 }

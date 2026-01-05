@@ -15,9 +15,8 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $address = Address::get()->take(5);
-
-        dd($address);
+        $clients = Client::with('user')->latest()->get();
+        return view('clients.index', compact('clients'));
     }
 
     /**
@@ -25,7 +24,8 @@ class ClientController extends Controller
      */
     public function create()
     {
-        //
+        $users = \App\Models\User::all();
+        return view('clients.create', compact('users'));
     }
 
     /**
@@ -33,22 +33,8 @@ class ClientController extends Controller
      */
     public function store(StoreClientRequest $request)
     {
-        $request = [
-            'user_id' => 1,
-            'name' => "Dr. Carlos Silva",
-            'cpf' => "123.456.789-00",
-            'phone_number' => "(11) 98765-4321"
-        ];
-
-        $request = collect($request);
-
-        Client::create([
-            'user_id' => $request->user_id,
-            'name' => $request->name,
-            'cpf' => $request->cpf,
-            'phone_number' => $request->phone_number
-            
-        ]);
+        Client::create($request->validated());
+        return redirect()->route('clients.index')->with('success', 'Cliente cadastrado com sucesso!');
     }
 
     /**
@@ -56,7 +42,8 @@ class ClientController extends Controller
      */
     public function show(Client $client)
     {
-        //
+        $client->load('user');
+        return view('clients.show', compact('client'));
     }
 
     /**
@@ -64,7 +51,8 @@ class ClientController extends Controller
      */
     public function edit(Client $client)
     {
-    
+        $users = \App\Models\User::all();
+        return view('clients.edit', compact('client', 'users'));
     }
 
     /**
@@ -72,21 +60,8 @@ class ClientController extends Controller
      */
     public function update(UpdateClientRequest $request, Client $client)
     {
-        $request = [
-            'user_id' => 1,
-            'name' => "Dr.Joao Pedro",
-            'cpf' => "863.416.759-10",
-            'phone_number' => "(11) 5421-8671"
-        ];
-
-        $request = collect($request);
-        
-        $client->update([
-            'user_id' => $request->user_id,
-            'name' => $request->name,
-            'cpf' => $request->cpf,
-            'phone_number' => $request->phone_number
-       ]);
+        $client->update($request->validated());
+        return redirect()->route('clients.index')->with('success', 'Cliente atualizado com sucesso!');
     }
 
     /**
@@ -95,5 +70,6 @@ class ClientController extends Controller
     public function destroy(Client $client)
     {
         $client->delete();
+        return redirect()->route('clients.index')->with('success', 'Cliente excluído com sucesso!');
     }
 }

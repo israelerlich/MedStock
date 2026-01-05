@@ -16,9 +16,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = User::get()->take(5);
-
-        dd($user);
+        $users = User::latest()->get();
+        return view('users.index', compact('users'));
     }
 
     /**
@@ -26,7 +25,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('users.create');
     }
 
     /**
@@ -34,23 +33,10 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        $request = [
-            'name' => "Israel",
-            'email' => "israel@gmail.com",
-            'password' => 'senhaForte',
-            'role' => Role::USER
-        ];
-
-
-        $request = collect($request);
-        
-
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => $request->email,
-        ]);
+        $data = $request->validated();
+        $data['password'] = Hash::make($data['password']);
+        User::create($data);
+        return redirect()->route('users.index')->with('success', 'Usuário cadastrado com sucesso!');
     }
          
     /**
@@ -58,7 +44,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        return view('users.show', compact('user'));
     }
 
     /**
@@ -66,35 +52,30 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('users.edit', compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUserRequest $request)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        $user = Auth::user();
-
-        $request = [
-            'name' => "Israel Editado",
-            'email' => "israel_editado@gmail.com",
-        ];
-
-        $request = collect($request);
-
-        $user->update([
-            'name' => $request->name,
-            'email' => $request->email,
-        ]);
+        $data = $request->validated();
+        if (!empty($data['password'])) {
+            $data['password'] = Hash::make($data['password']);
+        } else {
+            unset($data['password']);
+        }
+        $user->update($data);
+        return redirect()->route('users.index')->with('success', 'Usuário atualizado com sucesso!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($user_id)
+    public function destroy(User $user)
     {
-        $user = User::find($user_id);
         $user->delete();
+        return redirect()->route('users.index')->with('success', 'Usuário excluído com sucesso!');
     }
 }

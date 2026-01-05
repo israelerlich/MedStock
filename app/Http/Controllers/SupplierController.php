@@ -13,7 +13,8 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        $supplier = Supplier::get()->take(5);
+        $suppliers = Supplier::latest()->get();
+        return view('suppliers.index', compact('suppliers'));
     }
 
     /**
@@ -21,7 +22,7 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        //
+        return view('suppliers.create');
     }
 
     /**
@@ -29,25 +30,8 @@ class SupplierController extends Controller
      */
     public function store(StoreSupplierRequest $request)
     {
-        $request = [
-    'company_name' => "Cirúrgica e Hospitalar São Paulo LTDA",
-    'commercial_name' => "Cirúrgica SP",
-    'phone_number' => "(21) 2987-6543",
-    'cnpj' => "98.765.432/0001-10",
-    'email' => "vendas@cirurgicasp.com.br"
-        ];
-        
-
-        $request = collect($request);
-
-       Supplier::create([
-        'company_name' => $request->company_name,
-        'commercial_name' => $request->commercial_name,
-        'phone_number' => $request->phone_number,
-        'cnpj' => $request->cnpj,
-        'email' => $request->email
-    ]);
-        
+        Supplier::create($request->validated());
+        return redirect()->route('suppliers.index')->with('success', 'Fornecedor cadastrado com sucesso!');
     }
 
     /**
@@ -55,7 +39,7 @@ class SupplierController extends Controller
      */
     public function show(Supplier $supplier)
     {
-        //
+        return view('suppliers.show', compact('supplier'));
     }
 
     /**
@@ -63,7 +47,7 @@ class SupplierController extends Controller
      */
     public function edit(Supplier $supplier)
     {
-        
+        return view('suppliers.edit', compact('supplier'));
     }
 
     /**
@@ -71,23 +55,8 @@ class SupplierController extends Controller
      */
     public function update(UpdateSupplierRequest $request, Supplier $supplier)
     {
-        $request = [
-            'company_name' => "Tecnologia e Diagnóstico Vital LTDA",
-            'commercial_name' => "Vital Tech",
-            'phone_number' => "(31) 3221-9876",
-            'cnpj' => "45.678.901/0001-22",
-            'email' => "suporte@vitaltech.med.br"
-        ];
-
-        $request = collect($request);
-
-        $supplier->update([
-            'company_name' => $request->company_name,
-            'commercial_name' => $request->commercial_name,
-            'phone_number' => $request->phone_number,
-            'cnpj' => $request->cnpj,
-            'email' => $request->email
-        ]);
+        $supplier->update($request->validated());
+        return redirect()->route('suppliers.index')->with('success', 'Fornecedor atualizado com sucesso!');
     }
 
     /**
@@ -96,5 +65,6 @@ class SupplierController extends Controller
     public function destroy(Supplier $supplier)
     {
         $supplier->delete();
+        return redirect()->route('suppliers.index')->with('success', 'Fornecedor excluído com sucesso!');
     }
 }

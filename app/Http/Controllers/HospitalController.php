@@ -14,11 +14,8 @@ class HospitalController extends Controller
      */
     public function index()
     {
-        $hospital = Hospital::get()->take(5);
-
-        dd($hospital);
-        
-        //
+        $hospitals = Hospital::latest()->get();
+        return view('hospitals.index', compact('hospitals'));
     }
 
     /**
@@ -26,7 +23,7 @@ class HospitalController extends Controller
      */
     public function create()
     {
-        //
+        return view('hospitals.create');
     }
 
     /**
@@ -34,17 +31,8 @@ class HospitalController extends Controller
      */
     public function store(StoreHospitalRequest $request)
     {
-        $request = [
-            'name' => "Hospital Português"
-        ];
-
-
-        $request = collect($request);
-
-
-        Hospital::create([
-            'name' => $request->name
-        ]);
+        Hospital::create($request->validated());
+        return redirect()->route('hospitals.index')->with('success', 'Hospital cadastrado com sucesso!');
     }
 
     /**
@@ -52,7 +40,7 @@ class HospitalController extends Controller
      */
     public function show(Hospital $hospital)
     {
-        //
+        return view('hospitals.show', compact('hospital'));
     }
 
     /**
@@ -60,7 +48,7 @@ class HospitalController extends Controller
      */
     public function edit(Hospital $hospital)
     {
-        
+        return view('hospitals.edit', compact('hospital'));
     }
 
     /**
@@ -68,15 +56,8 @@ class HospitalController extends Controller
      */
     public function update(UpdateHospitalRequest $request, Hospital $hospital)
     {
-        $request = [
-            'name' => "Hospital Santa Joana"
-        ];
-
-        $request = collect($request);
-        
-        $hospital->update([
-        'name' => $request->name
-       ]);
+        $hospital->update($request->validated());
+        return redirect()->route('hospitals.index')->with('success', 'Hospital atualizado com sucesso!');
     }
 
     /**
@@ -84,6 +65,7 @@ class HospitalController extends Controller
      */
     public function destroy(Hospital $hospital)
     {
-          $hospital->delete();
+        $hospital->delete();
+        return redirect()->route('hospitals.index')->with('success', 'Hospital excluído com sucesso!');
     }
 }

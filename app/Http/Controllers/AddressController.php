@@ -14,9 +14,8 @@ class AddressController extends Controller
      */
     public function index()
     {
-        $address = Address::get()->take(5);
-
-        dd($address);
+        $addresses = Address::latest()->get();
+        return view('addresses.index', compact('addresses'));
     }
 
     /**
@@ -24,7 +23,7 @@ class AddressController extends Controller
      */
     public function create()
     {
-        //
+        return view('addresses.create');
     }
 
     /**
@@ -32,33 +31,8 @@ class AddressController extends Controller
      */
     public function store(StoreAddressRequest $request)
     {
-        $request = [
-            'referring_type' => 'App\Models\Client',
-            'referring_id' => 1,
-            'cep' => '01310-100',
-            'city' => 'São Paulo',
-            'state' => 'SP',
-            'district' => 'Centro',
-            'country' => 'BRAZIL',
-            'street' => 'Avenida Paulista',
-            'complement_number' => 'Apartamento 501',
-            'address_number' => '1000'
-        ];
-
-        $request = collect($request);
-
-        Address::create([
-            'referring_type' => $request->referring_type,
-            'referring_id' => $request->referring_id,
-            'cep' => $request->cep,
-            'city' => $request->city,
-            'state' => $request->state,
-            'district' => $request->district,
-            'country' => $request->country,
-            'street' => $request->street,
-            'complement_number' => $request->complement_number,
-            'address_number' => $request->address_number
-        ]);
+        Address::create($request->validated());
+        return redirect()->route('addresses.index')->with('success', 'Endereço cadastrado com sucesso!');
     }
 
     /**
@@ -66,7 +40,7 @@ class AddressController extends Controller
      */
     public function show(Address $address)
     {
-        //
+        return view('addresses.show', compact('address'));
     }
 
     /**
@@ -74,7 +48,7 @@ class AddressController extends Controller
      */
     public function edit(Address $address)
     {
-        //
+        return view('addresses.edit', compact('address'));
     }
 
     /**
@@ -82,34 +56,8 @@ class AddressController extends Controller
      */
     public function update(UpdateAddressRequest $request, Address $address)
     {
-        $request = [
-            'referring_type' => 'App\Models\Hospital',
-            'referring_id' => 2,
-            'cep' => '04567-890',
-            'city' => 'Rio de Janeiro',
-            'state' => 'RJ',
-            'district' => 'Copacabana',
-            'country' => 'BRAZIL',
-            'street' => 'Rua Barata Ribeiro',
-            'complement_number' => 'Sala 302',
-            'address_number' => '500'
-        ];
-
-        $request = collect($request);
-
-        $address->update([
-            'referring_type' => $request->referring_type,
-            'referring_id' => $request->referring_id,
-            'cep' => $request->cep,
-            'city' => $request->city,
-            'state' => $request->state,
-            'district' => $request->district,
-            'country' => $request->country,
-            'street' => $request->street,
-            'complement_number' => $request->complement_number,
-            'address_number' => $request->address_number
-        ]);
-
+        $address->update($request->validated());
+        return redirect()->route('addresses.index')->with('success', 'Endereço atualizado com sucesso!');
     }
 
     /**
@@ -118,5 +66,6 @@ class AddressController extends Controller
     public function destroy(Address $address)
     {
         $address->delete();
+        return redirect()->route('addresses.index')->with('success', 'Endereço excluído com sucesso!');
     }
 }
