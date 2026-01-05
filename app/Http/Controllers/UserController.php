@@ -40,7 +40,9 @@ class UserController extends Controller
             'password' => 'senhaForte'
         ];
 
+
         $request = collect($request);
+        
 
         User::create([
             'name' => $request->name,

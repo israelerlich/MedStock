@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\HospitalController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use Termwind\Components\Raw;
 
 Route::get('/', function () {
     return view('welcome');
@@ -14,6 +16,20 @@ Route::post('/register', [UserController::class, 'store']);
 Route::patch('/edit', [UserController::class, 'update']);
 
 Route::delete('/delete/{user_id}', [UserController::class, 'destroy']);
+
+
+
+Route::get('/hospitals', [HospitalController::class, 'index']);
+
+Route::post('/register', [HospitalController::class, 'store']);
+
+Route::patch('/edit', [HospitalController::class, 'update']);
+
+Route::delete('/delete', [HospitalController::class, 'destroy']);
+    
+
+
+
 
 // Route::get();
 // Route::post();

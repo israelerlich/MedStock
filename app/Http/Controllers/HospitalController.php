@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Hospital;
 use App\Http\Requests\StoreHospitalRequest;
 use App\Http\Requests\UpdateHospitalRequest;
+use Illuminate\Support\Facades\Auth;
 
 class HospitalController extends Controller
 {
@@ -13,6 +14,10 @@ class HospitalController extends Controller
      */
     public function index()
     {
+        $hospital = Hospital::get()->take(5);
+
+        dd($hospital);
+        
         //
     }
 
@@ -29,7 +34,17 @@ class HospitalController extends Controller
      */
     public function store(StoreHospitalRequest $request)
     {
-        //
+        $request = [
+            'name' => "Hospital Português"
+        ];
+
+
+        $request = collect($request);
+
+
+        Hospital::create([
+            'name' => $request->name
+        ]);
     }
 
     /**
@@ -45,7 +60,7 @@ class HospitalController extends Controller
      */
     public function edit(Hospital $hospital)
     {
-        //
+        
     }
 
     /**
@@ -53,7 +68,15 @@ class HospitalController extends Controller
      */
     public function update(UpdateHospitalRequest $request, Hospital $hospital)
     {
-        //
+        $request = [
+            'name' => "Hospital Santa Joana"
+        ];
+
+        $request = collect($request);
+        
+        $hospital->update([
+        'name' => $request->name
+       ]);
     }
 
     /**
@@ -61,6 +84,6 @@ class HospitalController extends Controller
      */
     public function destroy(Hospital $hospital)
     {
-        //
+          $hospital->delete();
     }
 }
