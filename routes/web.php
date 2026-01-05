@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HospitalController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Termwind\Components\Raw;
@@ -23,10 +24,22 @@ Route::get('/hospitals', [HospitalController::class, 'index']);
 
 Route::post('/register', [HospitalController::class, 'store']);
 
-Route::patch('/edit', [HospitalController::class, 'update']);
+Route::patch('/edit/{hospital}', [HospitalController::class, 'update']);
 
-Route::delete('/delete', [HospitalController::class, 'destroy']);
+Route::delete('/delete/{hospital}', [HospitalController::class, 'destroy']);
     
+
+
+Route::get('/suppliers', [SupplierController::class, 'index']);
+
+Route::post('register', [SupplierController::class, 'store']);
+
+Route::patch('/edit/{supplier}', [SupplierController::class, 'update']);
+
+Route::delete('delete/{supplier}', [SupplierController::class, 'destroy']);
+
+
+ 
 
 
 
