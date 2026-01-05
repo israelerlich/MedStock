@@ -4,6 +4,7 @@ use App\Http\Controllers\HospitalController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
+use App\Models\Address;
 use Illuminate\Support\Facades\Route;
 use Termwind\Components\Raw;
 
@@ -52,7 +53,17 @@ Route::delete('delete/{product}', [ProductController::class, 'destroy']);
 
 
 
-Route::get('/product', [])
+Route::get('/address', [Address::class, 'index']);
+
+Route::get('/register_address', [Address::class, 'store']);
+
+Route::patch('/edit/{address}', [Address::class, 'update']);
+
+Route::delete('delete/{address}', [Address::class, 'destroy']);
+
+
+
+
 
 
  

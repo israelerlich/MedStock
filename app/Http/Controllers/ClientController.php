@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Role;
 use App\Models\Client;
 use App\Http\Requests\StoreClientRequest;
 use App\Http\Requests\UpdateClientRequest;
+use App\Models\Address;
 
 class ClientController extends Controller
 {
@@ -13,7 +15,9 @@ class ClientController extends Controller
      */
     public function index()
     {
-        //
+        $address = Address::get()->take(5);
+
+        dd($address);
     }
 
     /**
@@ -29,7 +33,23 @@ class ClientController extends Controller
      */
     public function store(StoreClientRequest $request)
     {
-        //
+        $request = [
+            'user_id' => 1,
+            'name' => "Dr. Carlos Silva",
+            'cpf' => "123.456.789-00",
+            'phone_number' => "(11) 98765-4321"
+            //PROFISSAO
+        ];
+
+        $request = collect($request);
+
+        Client::create([
+            'user_id' => $request->user_id,
+            'name' => $request->name,
+            'cpf' => $request->cpf,
+            'phone_number' => $request->phone_number
+            //PROFISSAO
+        ]);
     }
 
     /**
@@ -45,7 +65,9 @@ class ClientController extends Controller
      */
     public function edit(Client $client)
     {
-        //
+        $request = [
+            
+        ]
     }
 
     /**
@@ -61,6 +83,6 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-        //
+        //ID
     }
 }
