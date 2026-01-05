@@ -38,7 +38,6 @@ class ClientController extends Controller
             'name' => "Dr. Carlos Silva",
             'cpf' => "123.456.789-00",
             'phone_number' => "(11) 98765-4321"
-            //PROFISSAO
         ];
 
         $request = collect($request);
@@ -48,7 +47,7 @@ class ClientController extends Controller
             'name' => $request->name,
             'cpf' => $request->cpf,
             'phone_number' => $request->phone_number
-            //PROFISSAO
+            
         ]);
     }
 
@@ -65,9 +64,7 @@ class ClientController extends Controller
      */
     public function edit(Client $client)
     {
-        $request = [
-            
-        ]
+    
     }
 
     /**
@@ -75,7 +72,21 @@ class ClientController extends Controller
      */
     public function update(UpdateClientRequest $request, Client $client)
     {
-        //
+        $request = [
+            'user_id' => 1,
+            'name' => "Dr.Joao Pedro",
+            'cpf' => "863.416.759-10",
+            'phone_number' => "(11) 5421-8671"
+        ];
+
+        $request = collect($request);
+        
+        $client->update([
+            'user_id' => $request->user_id,
+            'name' => $request->name,
+            'cpf' => $request->cpf,
+            'phone_number' => $request->phone_number
+       ]);
     }
 
     /**
@@ -83,6 +94,6 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-        //ID
+        $client->delete();
     }
 }

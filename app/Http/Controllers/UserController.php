@@ -37,7 +37,8 @@ class UserController extends Controller
         $request = [
             'name' => "Israel",
             'email' => "israel@gmail.com",
-            'password' => 'senhaForte'
+            'password' => 'senhaForte',
+            'role' => Role::USER
         ];
 
 
@@ -48,7 +49,7 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => Role::USER
+            'role' => $request->email,
         ]);
     }
          
@@ -94,6 +95,6 @@ class UserController extends Controller
     public function destroy($user_id)
     {
         $user = User::find($user_id);
-        $user->delete;
+        $user->delete();
     }
 }

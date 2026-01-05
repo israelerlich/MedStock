@@ -13,7 +13,7 @@ class ProductMovementController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**

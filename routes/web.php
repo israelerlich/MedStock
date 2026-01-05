@@ -1,10 +1,13 @@
 <?php
 
+use App\Http\Controllers\AddressController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\HospitalController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use App\Models\Address;
+use App\Models\Client;
 use Illuminate\Support\Facades\Route;
 use Termwind\Components\Raw;
 
@@ -42,7 +45,6 @@ Route::delete('delete/{supplier}', [SupplierController::class, 'destroy']);
 
 
 
-
 Route::get('/product', [ProductController::class, 'index']);
 
 Route::post('/register_product', [ProductController::class, 'store']);
@@ -53,17 +55,24 @@ Route::delete('delete/{product}', [ProductController::class, 'destroy']);
 
 
 
-Route::get('/address', [Address::class, 'index']);
+Route::get('/address', [AddressController::class, 'index']);
 
-Route::get('/register_address', [Address::class, 'store']);
+Route::post('/register_address', [AddressController::class, 'store']);
 
-Route::patch('/edit/{address}', [Address::class, 'update']);
+Route::patch('/edit/{address}', [AddressController::class, 'update']);
 
-Route::delete('delete/{address}', [Address::class, 'destroy']);
-
-
+Route::delete('delete/{address}', [AddressController::class, 'destroy']);
 
 
+
+
+Route::get('/client', [ClientController::class, 'index']);
+
+Route::post('/register_client', [ClientController::class, 'store']);
+
+Route::patch('/edit/{client}', [ClientController::class, 'update']);
+
+Route::delete('delete/{client}', [ClientController::class, 'destroy']);
 
 
  
