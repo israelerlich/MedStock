@@ -13,7 +13,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $product = Product::get()->take(5);
+
+        dd($product);
     }
 
     /**
@@ -29,7 +31,25 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        //
+        $request = [
+            'supplier_id' => 1,
+            'name' => 'Luva Cirúrgica Estéril',
+            'price' => 'R$89.90',
+            'type' => 'MEDICAL',
+            'status' => 'AVAILABLE',
+            'expires_at' => '2027-12-31'
+        ];
+
+        $request = collect($request);
+
+        Product::create([
+            'supplier_id' => $request->supplier_id,
+            'name' => $request->name,
+            'price' => $request->price,
+            'type' => $request->type,
+            'status' => $request->status,
+            'expires_at' => $request->expires_at
+        ]);
     }
 
     /**
@@ -53,7 +73,25 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        //
+        $request = [
+            'supplier_id' => 7,
+            'name' => 'Luva Cirúrgica Estéril Atualizada',
+            'price' => 'R$95.50',
+            'type' => 'EQUIPAMENTO',
+            'status' => 'FORA DE ESTOQUE',
+            'expires_at' => '2028-06-30'
+        ];
+
+        $request = collect($request);
+
+        $product->update([
+            'supplier_id' => $request->supplier_id,
+            'name' => $request->name,
+            'price' => $request->price,
+            'type' => $request->type,
+            'status' => $request->status,
+            'expires_at' => $request->expires_at
+        ]);
     }
 
     /**
@@ -61,6 +99,6 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
     }
 }
