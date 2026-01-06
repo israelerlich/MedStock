@@ -34,10 +34,18 @@ class ProductMovementController extends Controller
     {
         $data = $request->validated();
         
-        // Calcula o preço total automaticamente
-        $product = \App\Models\Product::findOrFail($data['product_id']);
-        $data['unit_price'] = $product->price;
-        $data['total_price'] = $product->price * $data['quantity'];
+        // Se client_id estiver vazio, define como null
+        if (empty($data['client_id'])) {
+            $data['client_id'] = null;
+        }
+        
+        // Usa os preços enviados pelo formulário (que já foram calculados no front-end)
+        // Mas valida com o preço do produto se necessário
+        if (!isset($data['unit_price']) || !isset($data['total_price'])) {
+            $product = \App\Models\Product::findOrFail($data['product_id']);
+            $data['unit_price'] = $product->price;
+            $data['total_price'] = $product->price * $data['quantity'];
+        }
         
         ProductMovement::create($data);
         

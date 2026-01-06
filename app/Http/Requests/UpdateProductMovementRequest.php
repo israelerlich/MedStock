@@ -23,9 +23,11 @@ class UpdateProductMovementRequest extends FormRequest
     {
         return [
             'product_id' => 'required|exists:products,id',
-            'client_id' => 'required|exists:clients,id',
+            'client_id' => 'nullable|exists:clients,id',
             'type' => 'required|integer|in:1,2,3',
-            'quantity' => 'required|integer|min:1'
+            'quantity' => 'required|integer|min:1',
+            'unit_price' => 'required|numeric|min:0',
+            'total_price' => 'required|numeric|min:0'
         ];
     }
 }

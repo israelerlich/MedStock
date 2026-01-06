@@ -23,7 +23,8 @@ class ProductController extends Controller
     public function create()
     {
         $suppliers = \App\Models\Supplier::all();
-        return view('products.create', compact('suppliers'));
+        $hospitals = \App\Models\Hospital::all();
+        return view('products.create', compact('suppliers', 'hospitals'));
     }
 
     /**
@@ -47,7 +48,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        $product->load('supplier');
+        $product->load('supplier', 'hospital');
         return view('products.show', compact('product'));
     }
 
@@ -57,7 +58,8 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $suppliers = \App\Models\Supplier::all();
-        return view('products.edit', compact('product', 'suppliers'));
+        $hospitals = \App\Models\Hospital::all();
+        return view('products.edit', compact('product', 'suppliers', 'hospitals'));
     }
 
     /**

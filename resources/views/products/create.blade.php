@@ -28,6 +28,22 @@
                 </div>
 
                 <div>
+                    <label for="hospital_id" class="block text-sm font-medium text-gray-700 mb-2">Hospital</label>
+                    <select name="hospital_id" id="hospital_id"
+                        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm @error('hospital_id') input-error @enderror">
+                        <option value="">Selecione um hospital (opcional)</option>
+                        @foreach($hospitals as $hospital)
+                            <option value="{{ $hospital->id }}" {{ old('hospital_id') == $hospital->id ? 'selected' : '' }}>
+                                {{ $hospital->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('hospital_id')
+                        <p class="error-message">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div>
                     <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nome do Produto *</label>
                     <input type="text" name="name" id="name" value="{{ old('name') }}" required
                         class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm @error('name') input-error @enderror">
