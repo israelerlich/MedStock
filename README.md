@@ -22,7 +22,7 @@ composer setup
 
 2.(Opcional) Popular com Dados de Teste
 ```
-php artisan db:seed
+php artisan migrate:fresh --seed
 ```
 
 
