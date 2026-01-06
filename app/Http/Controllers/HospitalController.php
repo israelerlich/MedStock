@@ -14,7 +14,7 @@ class HospitalController extends Controller
      */
     public function index()
     {
-        $hospitals = Hospital::latest()->get();
+        $hospitals = Hospital::get();
         return view('hospitals.index', compact('hospitals'));
     }
 

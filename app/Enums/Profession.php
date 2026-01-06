@@ -11,9 +11,9 @@ enum Profession: int
     public function label(): string
     {
         return match($this) {
-            self::MEDIC => "Usuário",
-            self::NURSE => "Admin",
-            self::FINANCES => "Super Admin"
+            self::MEDIC => "Médico",
+            self::NURSE => "Enfermeiro",
+            self::FINANCES => "Financeiro"
         };
     }
 

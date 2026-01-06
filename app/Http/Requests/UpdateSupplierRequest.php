@@ -11,7 +11,7 @@ class UpdateSupplierRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +21,13 @@ class UpdateSupplierRequest extends FormRequest
      */
     public function rules(): array
     {
+        $supplierId = $this->route('supplier')->id;
         return [
-            //
+            'company_name' => 'required|string|max:255',
+            'commercial_name' => 'required|string|max:255',
+            'phone_number' => 'required|string|max:20',
+            'cnpj' => 'required|string|max:18|unique:suppliers,cnpj,' . $supplierId,
+            'email' => 'required|email|max:255|unique:suppliers,email,' . $supplierId
         ];
     }
 }
