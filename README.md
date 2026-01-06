@@ -8,6 +8,7 @@ git clone https://github.com/seu-usuario/medstock.git
 cd medstock
 composer setup
 ```
+
 2. Configurando o Banco
    ```
    type nul > database/database.sqlite
