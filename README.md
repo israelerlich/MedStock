@@ -11,29 +11,58 @@ Independentemente do seu ambiente (Herd, Laragon ou Docker), o fluxo base é o m
 ```
 git clone https://github.com/seu-usuario/medstock.git
 cd medstock
+```
+
+
+1.Configure o Projeto
+```
 composer setup
 ```
 
 
-2. Configurando o Banco
-   ```
-   type nul > database/database.sqlite
-   php artisan migrate --seed
-   ```
+2.(Opcional) Popular com Dados de Teste
+```
+php artisan db:seed
+```
 
-3. Execute
+
+4.Executar
 ```
 composer dev
 ```
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 🐳 Suporte ao Docker (Sail)
+
+1.Clone e Configure
 ```
-#iniciar o container
+git clone https://github.com/seu-usuario/medstock.git
+cd medstock
+cp .env.example .env
+```
+
+
+2. Instale as Dependências via Docker
+```
+docker run --rm \
+    -u "$(id -u):$(id -g)" \
+    -v "$(pwd):/var/www/html" \
+    -w /var/www/html \
+    laravelsail/php83-composer:latest \
+    composer install --ignore-platform-reqs
+```
+
+
+3. Inicie os Containers
+```
 ./vendor/bin/sail up -d
-
-#migrar dentro do container
-./vendor/bin/sail artisan migrate
 ```
 
 
-
+4. Configure e Migre
+   ```
+    ./vendor/bin/sail artisan key:generate
+    ./vendor/bin/sail artisan migrate --seed
+    ./vendor/bin/sail npm install
+    ./vendor/bin/sail npm run build
+  ```
