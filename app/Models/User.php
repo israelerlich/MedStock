@@ -3,15 +3,17 @@
 namespace App\Models;
 
 use App\Enums\Role;
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\{
     Model,
     SoftDeletes
 };
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class User extends Model
+class User extends Model implements AuthenticatableContract
 {
-    use SoftDeletes, HasFactory;
+    use SoftDeletes, HasFactory, Authenticatable;
 
     protected $fillable = [
         "name",

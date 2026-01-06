@@ -51,6 +51,19 @@
                         </a>
                     </div>
                 </div>
+                <div class="flex items-center">
+                    @auth
+                        <div class="flex items-center space-x-4">
+                            <span class="text-sm text-gray-700">{{ auth()->user()->name }}</span>
+                            <form method="POST" action="{{ route('logout') }}" class="inline">
+                                @csrf
+                                <button type="submit" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                                    Sair
+                                </button>
+                            </form>
+                        </div>
+                    @endauth
+                </div>
             </div>
         </div>
     </nav>
