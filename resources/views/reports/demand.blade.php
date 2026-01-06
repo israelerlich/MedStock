@@ -77,6 +77,7 @@
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
                         @foreach($topProducts as $index => $movement)
+                        @if($movement->product)
                         <tr class="hover:bg-gray-50">
                             <td class="px-6 py-4 whitespace-nowrap">
                                 @if($index < 3)
@@ -87,7 +88,7 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $movement->product->name }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ optional($movement->product->hospital)->name ?? 'N/A' }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $movement->product->supplier->name }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $movement->product->supplier->commercial_name ?? 'N/A' }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600">{{ $movement->total_quantity }} un</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-red-600">R$ {{ number_format($movement->total_spent, 2, ',', '.') }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $movement->movement_count }}</td>
@@ -96,6 +97,7 @@
                                 <a href="{{ route('products.show', $movement->product) }}" class="text-blue-600 hover:text-blue-900">Ver</a>
                             </td>
                         </tr>
+                        @endif
                         @endforeach
                         <tr class="bg-gray-50 font-medium">
                             <td colspan="4" class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">TOTAIS</td>
@@ -111,7 +113,7 @@
             <div class="mt-6 bg-gray-50 p-4 rounded-lg">
                 <h6 class="text-sm font-medium text-gray-900 mb-3">📈 Insights:</h6>
                 <ul class="space-y-2 text-sm text-gray-700">
-                    <li><strong>Produto com maior demanda:</strong> {{ $topProducts->first()->product->name }} ({{ $topProducts->first()->total_quantity }} unidades)</li>
+                    <li><strong>Produto com maior demanda:</strong> {{ $topProducts->first() && $topProducts->first()->product ? $topProducts->first()->product->name . ' (' . $topProducts->first()->total_quantity . ' unidades)' : 'N/A' }}</li>
                     <li><strong>Maior gasto:</strong> R$ {{ number_format($topProducts->max('total_spent'), 2, ',', '.') }}</li>
                     <li><strong>Média de consumo:</strong> {{ number_format($topProducts->avg('total_quantity'), 2, ',', '.') }} unidades por produto</li>
                 </ul>

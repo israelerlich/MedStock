@@ -141,7 +141,7 @@
                         @php $total = $expensesByCategory->sum(); @endphp
                         @foreach($expensesByCategory as $type => $amount)
                         <tr class="hover:bg-gray-50">
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $type ? $type->label() : 'Sem categoria' }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ is_int($type) ? \App\Enums\ProductType::from($type)->label() : 'Sem categoria' }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">R$ {{ number_format($amount, 2, ',', '.') }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">

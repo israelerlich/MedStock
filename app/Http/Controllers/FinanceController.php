@@ -106,9 +106,10 @@ class FinanceController extends Controller
             ->get()
             ->groupBy('product.type')
             ->map(function ($movements, $type) {
+                $typeEnum = is_int($type) ? ProductType::from($type) : null;
                 return [
                     'type' => $type,
-                    'label' => $type ? $type->label() : 'Sem categoria',
+                    'label' => $typeEnum ? $typeEnum->label() : 'Sem categoria',
                     'total' => $movements->sum('total_price'),
                     'quantity' => $movements->sum('quantity'),
                     'movements_count' => $movements->count(),

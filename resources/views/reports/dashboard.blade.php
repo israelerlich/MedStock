@@ -130,10 +130,11 @@
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
                         @foreach($topDemandProducts as $index => $movement)
+                        @if($movement->product)
                         <tr class="hover:bg-gray-50">
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $index + 1 }}º</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $movement->product->name }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $movement->product->supplier->name }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $movement->product->supplier->commercial_name ?? 'N/A' }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $movement->total_quantity }} unidades</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">R$ {{ number_format($movement->total_spent, 2, ',', '.') }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
@@ -141,6 +142,7 @@
                                 <a href="{{ route('reports.demand', ['product_id' => $movement->product->id]) }}" class="text-indigo-600 hover:text-indigo-900">Análise</a>
                             </td>
                         </tr>
+                        @endif
                         @endforeach
                     </tbody>
                 </table>
