@@ -25,7 +25,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        $hospitals = \App\Models\Hospital::all();
+        return view('users.create', compact('hospitals'));
     }
 
     /**
@@ -35,7 +36,18 @@ class UserController extends Controller
     {
         $data = $request->validated();
         $data['password'] = Hash::make($data['password']);
-        User::create($data);
+        $user = User::create($data);
+        
+        // Vincular hospitais ao usuário
+        if ($request->has('hospitals')) {
+            foreach ($request->hospitals as $hospitalId) {
+                \App\Models\UserHospital::create([
+                    'user_id' => $user->id,
+                    'hospital_id' => $hospitalId
+                ]);
+            }
+        }
+        
         return redirect()->route('users.index')->with('success', 'Usuário cadastrado com sucesso!');
     }
          
@@ -44,7 +56,10 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return view('users.show', compact('user'));
+        $userHospitals = \App\Models\UserHospital::where('user_id', $user->id)
+            ->with('hospital')
+            ->get();
+        return view('users.show', compact('user', 'userHospitals'));
     }
 
     /**
@@ -52,7 +67,11 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('users.edit', compact('user'));
+        $hospitals = \App\Models\Hospital::all();
+        $userHospitals = \App\Models\UserHospital::where('user_id', $user->id)
+            ->pluck('hospital_id')
+            ->toArray();
+        return view('users.edit', compact('user', 'hospitals', 'userHospitals'));
     }
 
     /**
@@ -67,6 +86,18 @@ class UserController extends Controller
             unset($data['password']);
         }
         $user->update($data);
+        
+        // Atualizar hospitais vinculados
+        \App\Models\UserHospital::where('user_id', $user->id)->delete();
+        if ($request->has('hospitals')) {
+            foreach ($request->hospitals as $hospitalId) {
+                \App\Models\UserHospital::create([
+                    'user_id' => $user->id,
+                    'hospital_id' => $hospitalId
+                ]);
+            }
+        }
+        
         return redirect()->route('users.index')->with('success', 'Usuário atualizado com sucesso!');
     }
 

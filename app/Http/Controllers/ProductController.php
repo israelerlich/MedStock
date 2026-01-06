@@ -31,7 +31,14 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        Product::create($request->validated());
+        $data = $request->validated();
+        
+        // Garantir que expires_at seja null se vazio
+        if (empty($data['expires_at'])) {
+            $data['expires_at'] = null;
+        }
+        
+        Product::create($data);
         return redirect()->route('products.index')->with('success', 'Produto cadastrado com sucesso!');
     }
 
@@ -58,7 +65,14 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        $product->update($request->validated());
+        $data = $request->validated();
+        
+        // Garantir que expires_at seja null se vazio
+        if (empty($data['expires_at'])) {
+            $data['expires_at'] = null;
+        }
+        
+        $product->update($data);
         return redirect()->route('products.index')->with('success', 'Produto atualizado com sucesso!');
     }
 

@@ -78,8 +78,8 @@
                 </div>
 
                 <div>
-                    <label for="expires_at" class="block text-sm font-medium text-gray-700 mb-2">Data de Validade *</label>
-                    <input type="date" name="expires_at" id="expires_at" value="{{ old('expires_at') }}" required
+                    <label for="expires_at" class="block text-sm font-medium text-gray-700 mb-2">Data de Validade</label>
+                    <input type="date" name="expires_at" id="expires_at" value="{{ old('expires_at') }}"
                         min="1900-01-01" max="2100-12-31"
                         class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm @error('expires_at') input-error @enderror">
                     @error('expires_at')

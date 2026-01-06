@@ -62,6 +62,28 @@
                 </div>
             </div>
 
+            <!-- Seção de Hospitais -->
+            <div class="mt-8 pt-8 border-t border-gray-200">
+                <h4 class="text-md leading-6 font-medium text-gray-900 mb-4">Hospitais Vinculados</h4>
+                <p class="text-sm text-gray-500 mb-4">Selecione os hospitais que este usuário poderá gerenciar</p>
+                
+                <div class="space-y-3">
+                    @forelse($hospitals as $hospital)
+                        <div class="flex items-center">
+                            <input type="checkbox" name="hospitals[]" value="{{ $hospital->id }}" 
+                                id="hospital_{{ $hospital->id }}"
+                                {{ (is_array(old('hospitals')) && in_array($hospital->id, old('hospitals'))) || (!old('hospitals') && in_array($hospital->id, $userHospitals)) ? 'checked' : '' }}
+                                class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                            <label for="hospital_{{ $hospital->id }}" class="ml-3 block text-sm font-medium text-gray-700">
+                                {{ $hospital->name }}
+                            </label>
+                        </div>
+                    @empty
+                        <p class="text-sm text-gray-500 italic">Nenhum hospital cadastrado. Cadastre hospitais primeiro.</p>
+                    @endforelse
+                </div>
+            </div>
+
             <div class="mt-6 flex justify-end space-x-3">
                 <a href="{{ route('users.index') }}" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                     Cancelar
