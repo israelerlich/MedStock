@@ -43,6 +43,12 @@
                         <a href="{{ route('users.index') }}" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
                             Usuários
                         </a>
+                        <a href="{{ route('reports.dashboard') }}" class="border-transparent text-yellow-600 hover:border-yellow-300 hover:text-yellow-800 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            📊 Relatórios
+                        </a>
+                        <a href="{{ route('finance.dashboard') }}" class="border-transparent text-green-600 hover:border-green-300 hover:text-green-800 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            💰 Financeiro
+                        </a>
                     </div>
                 </div>
             </div>

@@ -14,7 +14,10 @@ class ProductMovement extends Model
     protected $fillable = [
         'product_id',
         'client_id',
-        'type'
+        'type',
+        'quantity',
+        'unit_price',
+        'total_price'
     ];
 
     protected $casts = [
@@ -29,5 +32,18 @@ class ProductMovement extends Model
     public function client()
     {
         return $this->belongsTo(Client::class);
+    }
+
+    // Event para atualizar estoque automaticamente
+    protected static function booted()
+    {
+        static::created(function ($movement) {
+            $product = $movement->product;
+            if ($movement->type === MovementType::ENTRY || $movement->type === MovementType::RETURN) {
+                $product->increment('current_stock', $movement->quantity);
+            } elseif ($movement->type === MovementType::EXIT) {
+                $product->decrement('current_stock', $movement->quantity);
+            }
+        });
     }
 }

@@ -23,10 +23,13 @@ class StoreProductRequest extends FormRequest
     {
         return [
             'supplier_id' => 'required|exists:suppliers,id',
+            'hospital_id' => 'nullable|exists:hospitals,id',
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
             'type' => 'required|integer|in:1,2,3',
             'status' => 'required|integer|in:1,2,3',
+            'current_stock' => 'nullable|integer|min:0',
+            'min_stock' => 'nullable|integer|min:0',
             'expires_at' => 'nullable|date|after:1900-01-01|before:2100-12-31'
         ];
     }

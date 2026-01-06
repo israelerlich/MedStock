@@ -32,7 +32,15 @@ class ProductMovementController extends Controller
      */
     public function store(StoreProductMovementRequest $request)
     {
-        ProductMovement::create($request->validated());
+        $data = $request->validated();
+        
+        // Calcula o preço total automaticamente
+        $product = \App\Models\Product::findOrFail($data['product_id']);
+        $data['unit_price'] = $product->price;
+        $data['total_price'] = $product->price * $data['quantity'];
+        
+        ProductMovement::create($data);
+        
         return redirect()->route('product-movements.index')->with('success', 'Movimentação cadastrada com sucesso!');
     }
 
@@ -60,7 +68,17 @@ class ProductMovementController extends Controller
      */
     public function update(UpdateProductMovementRequest $request, ProductMovement $productMovement)
     {
-        $productMovement->update($request->validated());
+        $data = $request->validated();
+        
+        // Recalcula o preço total se a quantidade mudou
+        if (isset($data['quantity'])) {
+            $product = $productMovement->product;
+            $data['unit_price'] = $product->price;
+            $data['total_price'] = $product->price * $data['quantity'];
+        }
+        
+        $productMovement->update($data);
+        
         return redirect()->route('product-movements.index')->with('success', 'Movimentação atualizada com sucesso!');
     }
 
