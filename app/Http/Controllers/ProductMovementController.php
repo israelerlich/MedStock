@@ -22,7 +22,7 @@ class ProductMovementController extends Controller
      */
     public function create()
     {
-        $products = \App\Models\Product::all();
+        $products = \App\Models\Product::with('supplier')->get();
         $clients = \App\Models\Client::all();
         return view('product-movements.create', compact('products', 'clients'));
     }
@@ -50,7 +50,7 @@ class ProductMovementController extends Controller
      */
     public function edit(ProductMovement $productMovement)
     {
-        $products = \App\Models\Product::all();
+        $products = \App\Models\Product::with('supplier')->get();
         $clients = \App\Models\Client::all();
         return view('product-movements.edit', compact('productMovement', 'products', 'clients'));
     }

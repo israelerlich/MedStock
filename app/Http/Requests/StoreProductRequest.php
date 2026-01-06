@@ -27,7 +27,21 @@ class StoreProductRequest extends FormRequest
             'price' => 'required|numeric|min:0',
             'type' => 'required|integer|in:1,2,3',
             'status' => 'required|integer|in:1,2,3',
-            'expires_at' => 'nullable|date'
+            'expires_at' => 'nullable|date|after:1900-01-01|before:2100-12-31'
+        ];
+    }
+
+    /**
+     * Get custom messages for validator errors.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'expires_at.date' => 'A data de validade deve ser uma data válida.',
+            'expires_at.after' => 'A data de validade deve ser posterior a 01/01/1900.',
+            'expires_at.before' => 'A data de validade deve ser anterior a 31/12/2100.',
         ];
     }
 }
