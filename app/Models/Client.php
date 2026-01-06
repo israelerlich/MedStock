@@ -31,4 +31,9 @@ class Client extends Model
     {
         return $this->hasMany(ProductMovement::class);
     }
+
+    public function address()
+    {
+        return $this->morphOne(Address::class, 'referring');
+    }
 }

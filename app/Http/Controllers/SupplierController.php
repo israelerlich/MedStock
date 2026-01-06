@@ -30,7 +30,22 @@ class SupplierController extends Controller
      */
     public function store(StoreSupplierRequest $request)
     {
-        Supplier::create($request->validated());
+        $supplier = Supplier::create($request->validated());
+        
+        // Criar endereço se fornecido
+        if ($request->filled('cep')) {
+            $supplier->address()->create([
+                'cep' => $request->cep,
+                'city' => $request->city,
+                'state' => $request->state,
+                'district' => $request->district,
+                'country' => $request->country ?? 'br',
+                'street' => $request->street,
+                'complement_number' => $request->complement_number ?: '',
+                'address_number' => $request->address_number,
+            ]);
+        }
+        
         return redirect()->route('suppliers.index')->with('success', 'Fornecedor cadastrado com sucesso!');
     }
 
@@ -39,6 +54,7 @@ class SupplierController extends Controller
      */
     public function show(Supplier $supplier)
     {
+        $supplier->load('address');
         return view('suppliers.show', compact('supplier'));
     }
 
@@ -47,6 +63,7 @@ class SupplierController extends Controller
      */
     public function edit(Supplier $supplier)
     {
+        $supplier->load('address');
         return view('suppliers.edit', compact('supplier'));
     }
 
@@ -56,6 +73,24 @@ class SupplierController extends Controller
     public function update(UpdateSupplierRequest $request, Supplier $supplier)
     {
         $supplier->update($request->validated());
+        
+        // Atualizar ou criar endereço
+        if ($request->filled('cep')) {
+            $supplier->address()->updateOrCreate(
+                ['referring_type' => Supplier::class, 'referring_id' => $supplier->id],
+                [
+                    'cep' => $request->cep,
+                    'city' => $request->city,
+                    'state' => $request->state,
+                    'district' => $request->district,
+                    'country' => $request->country ?? 'br',
+                    'street' => $request->street,
+                    'complement_number' => $request->complement_number ?: '',
+                    'address_number' => $request->address_number,
+                ]
+            );
+        }
+        
         return redirect()->route('suppliers.index')->with('success', 'Fornecedor atualizado com sucesso!');
     }
 

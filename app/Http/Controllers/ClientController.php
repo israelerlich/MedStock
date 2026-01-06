@@ -33,7 +33,22 @@ class ClientController extends Controller
      */
     public function store(StoreClientRequest $request)
     {
-        Client::create($request->validated());
+        $client = Client::create($request->validated());
+        
+        // Criar endereço se fornecido
+        if ($request->filled('cep')) {
+            $client->address()->create([
+                'cep' => $request->cep,
+                'city' => $request->city,
+                'state' => $request->state,
+                'district' => $request->district,
+                'country' => $request->country ?? 'br',
+                'street' => $request->street,
+                'complement_number' => $request->complement_number ?: '',
+                'address_number' => $request->address_number,
+            ]);
+        }
+        
         return redirect()->route('clients.index')->with('success', 'Cliente cadastrado com sucesso!');
     }
 
@@ -42,7 +57,7 @@ class ClientController extends Controller
      */
     public function show(Client $client)
     {
-        $client->load('user');
+        $client->load('user', 'address');
         return view('clients.show', compact('client'));
     }
 
@@ -51,6 +66,7 @@ class ClientController extends Controller
      */
     public function edit(Client $client)
     {
+        $client->load('address');
         $users = \App\Models\User::all();
         return view('clients.edit', compact('client', 'users'));
     }
@@ -61,6 +77,24 @@ class ClientController extends Controller
     public function update(UpdateClientRequest $request, Client $client)
     {
         $client->update($request->validated());
+        
+        // Atualizar ou criar endereço
+        if ($request->filled('cep')) {
+            $client->address()->updateOrCreate(
+                ['referring_type' => Client::class, 'referring_id' => $client->id],
+                [
+                    'cep' => $request->cep,
+                    'city' => $request->city,
+                    'state' => $request->state,
+                    'district' => $request->district,
+                    'country' => $request->country ?? 'br',
+                    'street' => $request->street,
+                    'complement_number' => $request->complement_number ?: '',
+                    'address_number' => $request->address_number,
+                ]
+            );
+        }
+        
         return redirect()->route('clients.index')->with('success', 'Cliente atualizado com sucesso!');
     }
 
