@@ -14,6 +14,7 @@ cd medstock
 composer setup
 ```
 
+
 2. Configurando o Banco
    ```
    type nul > database/database.sqlite
