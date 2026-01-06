@@ -4,7 +4,6 @@
 
 @section('content')
 <div class="max-w-7xl mx-auto">
-    <!-- Cabeçalho -->
     <div class="bg-white shadow sm:rounded-lg mb-6">
         <div class="px-4 py-5 sm:px-6">
             <div class="flex justify-between items-center">
@@ -17,7 +16,6 @@
                 </a>
             </div>
             
-            <!-- Filtro -->
             <form method="GET" class="mt-6">
                 <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
                     <div>
@@ -37,7 +35,6 @@
         </div>
     </div>
 
-    <!-- ALERTA CRÍTICO: Produtos Vencidos -->
     @if($expiredProducts->count() > 0)
     <div class="bg-red-50 border-l-4 border-red-400 p-4 mb-6">
         <div class="flex">
@@ -104,7 +101,6 @@
     </div>
     @endif
 
-    <!-- Produtos Próximos ao Vencimento - 7 dias -->
     @if($nearExpiryProducts['7_days']->count() > 0)
     <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-6">
         <div class="px-4 py-5 sm:px-6 bg-yellow-500">
@@ -139,7 +135,6 @@
     </div>
     @endif
 
-    <!-- Produtos Próximos ao Vencimento - 8 a 15 dias -->
     @if($nearExpiryProducts['15_days']->count() > 0)
     <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-6">
         <div class="px-4 py-5 sm:px-6 bg-yellow-400">
@@ -172,7 +167,6 @@
     </div>
     @endif
 
-    <!-- Produtos Próximos ao Vencimento - 16 a 30 dias -->
     @if($nearExpiryProducts['30_days']->count() > 0)
     <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-6">
         <div class="px-4 py-5 sm:px-6 bg-blue-100">

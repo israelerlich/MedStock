@@ -2,7 +2,6 @@
 
 @section('content')
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <!-- Cabeçalho e Filtros -->
     <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-6">
         <div class="px-4 py-5 sm:px-6">
             <h1 class="text-3xl font-bold text-gray-900">📊 Análise de Demanda de Produtos</h1>
@@ -40,7 +39,6 @@
         </div>
     </div>
 
-    <!-- Produtos com Mais Demanda -->
     <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-6">
         <div class="px-4 py-5 sm:px-6 bg-blue-600">
             <h5 class="text-lg font-medium text-white">Produtos com Maior Demanda (Últimos {{ $period }} dias)</h5>
@@ -135,7 +133,6 @@
         </div>
     </div>
 
-    <!-- Produtos Sem Movimento -->
     @if($noMovementProducts->count() > 0)
     <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-6 border-l-4 border-yellow-500">
         <div class="px-4 py-5 sm:px-6 bg-yellow-50">

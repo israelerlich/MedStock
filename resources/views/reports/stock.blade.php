@@ -2,7 +2,6 @@
 
 @section('content')
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <!-- Cabeçalho e Filtro -->
     <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-6">
         <div class="px-4 py-5 sm:px-6">
             <h1 class="text-3xl font-bold text-gray-900">📦 Relatório de Estoque</h1>
@@ -28,7 +27,6 @@
         </div>
     </div>
 
-    <!-- Cards de Resumo -->
     <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
         <div class="bg-white shadow overflow-hidden sm:rounded-lg border-l-4 border-gray-500">
             <div class="px-4 py-5 sm:p-6">
@@ -56,7 +54,6 @@
         </div>
     </div>
 
-    <!-- Tabela de Produtos -->
     <div class="bg-white shadow overflow-hidden sm:rounded-lg">
         <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-gray-200">

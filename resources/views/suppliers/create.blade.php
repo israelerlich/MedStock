@@ -59,7 +59,6 @@
                 </div>
             </div>
 
-            <!-- Seção de Endereço -->
             <div class="mt-8 pt-8 border-t border-gray-200">
                 <h4 class="text-md leading-6 font-medium text-gray-900 mb-4">Endereço</h4>
                 

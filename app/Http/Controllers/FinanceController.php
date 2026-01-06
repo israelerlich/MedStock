@@ -11,9 +11,6 @@ use Carbon\Carbon;
 
 class FinanceController extends Controller
 {
-    /**
-     * Dashboard financeiro do hospital
-     */
     public function dashboard(Request $request)
     {
         $hospitalId = $request->get('hospital_id');
@@ -25,29 +22,24 @@ class FinanceController extends Controller
 
         $hospital = Hospital::findOrFail($hospitalId);
 
-        // Orçamento atual
         $budget = $hospital->budget;
         $currentBalance = $hospital->current_balance;
 
-        // Gastos do mês atual
         $currentMonthExpenses = $hospital->getTotalExpenses(
             now()->startOfMonth(),
             now()->endOfMonth()
         );
 
-        // Gastos por categoria (mês atual)
         $expensesByCategory = $hospital->getExpensesByCategory(
             now()->startOfMonth(),
             now()->endOfMonth()
         );
 
-        // Comparação com mês anterior
         $lastMonthExpenses = $hospital->getTotalExpenses(
             now()->subMonth()->startOfMonth(),
             now()->subMonth()->endOfMonth()
         );
 
-        // Gastos dos últimos 12 meses
         $monthlyExpenses = [];
         for ($i = 11; $i >= 0; $i--) {
             $date = now()->subMonths($i);
@@ -57,7 +49,6 @@ class FinanceController extends Controller
             );
         }
 
-        // Gastos sazonais (por trimestre)
         $seasonalExpenses = [];
         for ($quarter = 1; $quarter <= 4; $quarter++) {
             $startMonth = ($quarter - 1) * 3 + 1;
@@ -79,9 +70,6 @@ class FinanceController extends Controller
         ));
     }
 
-    /**
-     * Despesas por categoria
-     */
     public function expensesByCategory(Request $request)
     {
         $hospitalId = $request->get('hospital_id');
@@ -95,7 +83,6 @@ class FinanceController extends Controller
         $startDate = $request->get('start_date', now()->startOfMonth());
         $endDate = $request->get('end_date', now()->endOfMonth());
 
-        // Gastos detalhados por categoria
         $categoryExpenses = ProductMovement::with('product')
             ->whereHas('product', function ($q) use ($hospitalId) {
                 $q->where('hospital_id', $hospitalId);
@@ -131,9 +118,6 @@ class FinanceController extends Controller
         ));
     }
 
-    /**
-     * Relatório mensal
-     */
     public function monthlyReport(Request $request)
     {
         $hospitalId = $request->get('hospital_id');
@@ -150,7 +134,6 @@ class FinanceController extends Controller
         $startDate = $date->copy()->startOfMonth();
         $endDate = $date->copy()->endOfMonth();
 
-        // Total de entradas
         $totalEntries = ProductMovement::whereHas('product', function ($q) use ($hospitalId) {
                 $q->where('hospital_id', $hospitalId);
             })
@@ -159,7 +142,6 @@ class FinanceController extends Controller
             ->whereDate('created_at', '<=', $endDate)
             ->sum('total_price');
 
-        // Total de saídas
         $totalExits = ProductMovement::whereHas('product', function ($q) use ($hospitalId) {
                 $q->where('hospital_id', $hospitalId);
             })
@@ -168,7 +150,6 @@ class FinanceController extends Controller
             ->whereDate('created_at', '<=', $endDate)
             ->sum('total_price');
 
-        // Gastos por dia
         $dailyExpenses = ProductMovement::whereHas('product', function ($q) use ($hospitalId) {
                 $q->where('hospital_id', $hospitalId);
             })
@@ -181,7 +162,6 @@ class FinanceController extends Controller
             ->get()
             ->pluck('total', 'date');
 
-        // Gastos por categoria
         $categoryExpenses = $hospital->getExpensesByCategory($startDate, $endDate);
 
         return view('finance.monthly-report', compact(
@@ -194,9 +174,6 @@ class FinanceController extends Controller
         ));
     }
 
-    /**
-     * Atualizar orçamento do hospital
-     */
     public function updateBudget(Request $request, Hospital $hospital)
     {
         $request->validate([

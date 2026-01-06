@@ -34,7 +34,6 @@ class ProductMovement extends Model
         return $this->belongsTo(Client::class);
     }
 
-    // Event para atualizar estoque automaticamente
     protected static function booted()
     {
         static::created(function ($movement) {

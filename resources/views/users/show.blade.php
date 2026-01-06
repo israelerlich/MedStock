@@ -52,7 +52,6 @@
                 <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ $user->updated_at->format('d/m/Y H:i:s') }}</dd>
             </div>
             
-            <!-- Hospitais Vinculados -->
             <div class="bg-gray-50 px-4 py-5 sm:px-6">
                 <h4 class="text-md font-medium text-gray-900 mb-4">Hospitais Vinculados</h4>
             </div>

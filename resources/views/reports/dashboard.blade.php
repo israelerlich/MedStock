@@ -2,7 +2,6 @@
 
 @section('content')
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <!-- Cabeçalho e Filtro -->
     <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-6">
         <div class="px-4 py-5 sm:px-6">
             <h1 class="text-3xl font-bold text-gray-900">📊 Dashboard de Relatórios</h1>
@@ -28,7 +27,6 @@
         </div>
     </div>
 
-    <!-- Alertas Críticos -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
         <div class="bg-white shadow overflow-hidden sm:rounded-lg border-l-4 border-red-500">
             <div class="px-4 py-5 sm:p-6">
@@ -64,7 +62,6 @@
         </div>
     </div>
 
-    <!-- Produtos Vencidos -->
     @if($expiredProducts->count() > 0)
     <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-6">
         <div class="px-4 py-5 sm:px-6 bg-red-600">
@@ -109,7 +106,6 @@
     </div>
     @endif
 
-    <!-- Produtos com Mais Demanda -->
     <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-6">
         <div class="px-4 py-5 sm:px-6 bg-blue-600">
             <h5 class="text-lg font-medium text-white">📊 Top 10 Produtos com Mais Demanda (Últimos 30 Dias)</h5>
@@ -158,7 +154,6 @@
         </div>
     </div>
 
-    <!-- Links Rápidos -->
     <div class="bg-white shadow overflow-hidden sm:rounded-lg">
         <div class="px-4 py-5 sm:px-6">
             <h5 class="text-lg font-medium text-gray-900">📋 Relatórios Disponíveis</h5>

@@ -31,7 +31,6 @@ class Hospital extends Model
         return $this->hasMany(Product::class);
     }
 
-    // Calcula gastos do hospital
     public function getTotalExpenses($startDate = null, $endDate = null)
     {
         $query = ProductMovement::whereHas('product', function ($q) {
@@ -48,7 +47,6 @@ class Hospital extends Model
         return $query->sum('total_price');
     }
 
-    // Calcula gastos por categoria
     public function getExpensesByCategory($startDate = null, $endDate = null)
     {
         $query = ProductMovement::with('product')

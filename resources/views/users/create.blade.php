@@ -61,7 +61,6 @@
                 </div>
             </div>
 
-            <!-- Seção de Hospitais -->
             <div class="mt-8 pt-8 border-t border-gray-200">
                 <h4 class="text-md leading-6 font-medium text-gray-900 mb-4">Hospitais Vinculados</h4>
                 <p class="text-sm text-gray-500 mb-4">Selecione os hospitais que este usuário poderá gerenciar</p>

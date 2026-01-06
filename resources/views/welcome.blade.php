@@ -7,7 +7,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 min-h-screen">
-    <!-- Navbar -->
     <nav class="bg-white shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
@@ -38,7 +37,6 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <div class="relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
             <div class="text-center">
@@ -72,7 +70,6 @@
         </div>
     </div>
 
-    <!-- Features Section -->
     <div class="bg-white py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
@@ -81,42 +78,36 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Feature 1 -->
                 <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 hover:shadow-xl transition duration-150">
                     <div class="text-4xl mb-4">📦</div>
                     <h4 class="text-xl font-bold text-gray-900 mb-2">Controle de Estoque</h4>
                     <p class="text-gray-600">Gerencie produtos, quantidades, validades e estoque mínimo de forma eficiente</p>
                 </div>
 
-                <!-- Feature 2 -->
                 <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-6 hover:shadow-xl transition duration-150">
                     <div class="text-4xl mb-4">📊</div>
                     <h4 class="text-xl font-bold text-gray-900 mb-2">Relatórios Detalhados</h4>
                     <p class="text-gray-600">Acompanhe movimentações, demanda de produtos e análises completas</p>
                 </div>
 
-                <!-- Feature 3 -->
                 <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 hover:shadow-xl transition duration-150">
                     <div class="text-4xl mb-4">💰</div>
                     <h4 class="text-xl font-bold text-gray-900 mb-2">Gestão Financeira</h4>
                     <p class="text-gray-600">Controle orçamentos, despesas por categoria e análises sazonais</p>
                 </div>
 
-                <!-- Feature 4 -->
                 <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-xl p-6 hover:shadow-xl transition duration-150">
                     <div class="text-4xl mb-4">⚠️</div>
                     <h4 class="text-xl font-bold text-gray-900 mb-2">Alertas Inteligentes</h4>
                     <p class="text-gray-600">Notificações de produtos vencidos, próximos ao vencimento e estoque baixo</p>
                 </div>
 
-                <!-- Feature 5 -->
                 <div class="bg-gradient-to-br from-red-50 to-red-100 rounded-xl p-6 hover:shadow-xl transition duration-150">
                     <div class="text-4xl mb-4">🏥</div>
                     <h4 class="text-xl font-bold text-gray-900 mb-2">Multi-Hospital</h4>
                     <p class="text-gray-600">Gerencie múltiplos hospitais em uma única plataforma integrada</p>
                 </div>
 
-                <!-- Feature 6 -->
                 <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-xl p-6 hover:shadow-xl transition duration-150">
                     <div class="text-4xl mb-4">📈</div>
                     <h4 class="text-xl font-bold text-gray-900 mb-2">Análise de Demanda</h4>
@@ -126,7 +117,6 @@
         </div>
     </div>
 
-    <!-- CTA Section -->
     <div class="bg-gradient-to-r from-indigo-600 to-purple-600 py-16">
         <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
             <h3 class="text-3xl font-bold text-white mb-4">
@@ -143,7 +133,6 @@
         </div>
     </div>
 
-    <!-- Footer -->
     <footer class="bg-gray-900 text-white py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">

@@ -11,14 +11,10 @@ use Carbon\Carbon;
 
 class ReportController extends Controller
 {
-    /**
-     * Dashboard com relatórios principais
-     */
     public function dashboard(Request $request)
     {
         $hospitalId = $request->get('hospital_id');
         
-        // Produtos vencidos
         $expiredProducts = Product::query()
             ->when($hospitalId, fn($q) => $q->where('hospital_id', $hospitalId))
             ->whereNotNull('expires_at')
@@ -27,7 +23,6 @@ class ReportController extends Controller
             ->with('supplier', 'hospital')
             ->get();
 
-        // Produtos próximos ao vencimento (30 dias)
         $nearExpiryProducts = Product::query()
             ->when($hospitalId, fn($q) => $q->where('hospital_id', $hospitalId))
             ->whereNotNull('expires_at')
@@ -37,14 +32,12 @@ class ReportController extends Controller
             ->with('supplier', 'hospital')
             ->get();
 
-        // Produtos com estoque baixo
         $lowStockProducts = Product::query()
             ->when($hospitalId, fn($q) => $q->where('hospital_id', $hospitalId))
             ->whereColumn('current_stock', '<=', 'min_stock')
             ->with('supplier', 'hospital')
             ->get();
 
-        // Produtos com mais demanda (últimos 30 dias)
         $topDemandProducts = ProductMovement::query()
             ->when($hospitalId, function($q) use ($hospitalId) {
                 $q->whereHas('product', fn($pq) => $pq->where('hospital_id', $hospitalId));
@@ -69,9 +62,6 @@ class ReportController extends Controller
         ));
     }
 
-    /**
-     * Relatório de movimentações
-     */
     public function movements(Request $request)
     {
         $query = ProductMovement::with(['product.supplier', 'product.hospital', 'client']);
@@ -94,7 +84,6 @@ class ReportController extends Controller
 
         $movements = $query->orderByDesc('created_at')->paginate(50);
         
-        // Totais
         $totals = [
             'entries' => ProductMovement::query()
                 ->when($request->hospital_id, fn($q) => $q->whereHas('product', fn($pq) => $pq->where('hospital_id', $request->hospital_id)))
@@ -115,14 +104,10 @@ class ReportController extends Controller
         return view('reports.movements', compact('movements', 'totals', 'hospitals'));
     }
 
-    /**
-     * Relatório de produtos vencidos e próximos ao vencimento
-     */
     public function expiry(Request $request)
     {
         $hospitalId = $request->get('hospital_id');
 
-        // Produtos vencidos
         $expiredProducts = Product::query()
             ->when($hospitalId, fn($q) => $q->where('hospital_id', $hospitalId))
             ->whereNotNull('expires_at')
@@ -132,7 +117,6 @@ class ReportController extends Controller
             ->orderBy('expires_at')
             ->get();
 
-        // Produtos próximos ao vencimento (agrupados por período)
         $nearExpiryProducts = [
             '7_days' => Product::query()
                 ->when($hospitalId, fn($q) => $q->where('hospital_id', $hospitalId))
@@ -168,15 +152,11 @@ class ReportController extends Controller
         return view('reports.expiry', compact('expiredProducts', 'nearExpiryProducts', 'hospitals'));
     }
 
-    /**
-     * Relatório de demanda de produtos
-     */
     public function demand(Request $request)
     {
         $hospitalId = $request->get('hospital_id');
-        $period = $request->get('period', 30); // dias
+        $period = $request->get('period', 30);
 
-        // Produtos mais consumidos
         $topProducts = ProductMovement::query()
             ->when($hospitalId, function($q) use ($hospitalId) {
                 $q->whereHas('product', fn($pq) => $pq->where('hospital_id', $hospitalId));
@@ -189,7 +169,6 @@ class ReportController extends Controller
             ->with('product.supplier', 'product.hospital')
             ->get();
 
-        // Produtos sem movimento
         $noMovementProducts = Product::query()
             ->when($hospitalId, fn($q) => $q->where('hospital_id', $hospitalId))
             ->whereDoesntHave('productMovements', function($q) use ($period) {
@@ -205,9 +184,6 @@ class ReportController extends Controller
         return view('reports.demand', compact('topProducts', 'noMovementProducts', 'hospitals', 'period'));
     }
 
-    /**
-     * Relatório de estoque
-     */
     public function stock(Request $request)
     {
         $hospitalId = $request->get('hospital_id');
