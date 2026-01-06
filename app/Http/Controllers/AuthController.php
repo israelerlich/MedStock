@@ -10,17 +10,13 @@ use Illuminate\Validation\Rules\Password;
 
 class AuthController extends Controller
 {
-    /**
-     * Exibir formulário de login
-     */
+   
     public function showLoginForm()
     {
         return view('auth.login');
     }
 
-    /**
-     * Processar login
-     */
+   
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -39,17 +35,13 @@ class AuthController extends Controller
         ])->onlyInput('email');
     }
 
-    /**
-     * Exibir formulário de cadastro
-     */
+   
     public function showRegisterForm()
     {
         return view('auth.register');
     }
 
-    /**
-     * Processar cadastro
-     */
+  
     public function register(Request $request)
     {
         $validated = $request->validate([
@@ -69,9 +61,7 @@ class AuthController extends Controller
         return redirect()->route('reports.dashboard');
     }
 
-    /**
-     * Processar logout
-     */
+   
     public function logout(Request $request)
     {
         Auth::logout();
